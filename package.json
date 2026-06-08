@@ -11,5 +11,8 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "html2canvas": "1.4.1"
   }
 }

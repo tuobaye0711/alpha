@@ -17,6 +17,7 @@ const {
   marketSymbol,
   optimizeParams,
   paramGrid,
+  parseCsv,
   weightedReturn,
   welchTTest,
   walkForwardEnsembleOptimize,
@@ -136,6 +137,33 @@ test("scoreAtDate can neutralize static theme fields to avoid current concept le
   assert.equal(disabledA.themeScore, 50);
   assert.equal(disabledB.themeScore, 50);
   assert.equal(disabledA.score, disabledB.score);
+});
+
+test("parseCsv handles CRLF line endings without polluting header names", () => {
+  const rows = parseCsv("date,open,volume\r\n2026-01-02,10,12345\r\n");
+
+  assert.deepEqual(Object.keys(rows[0]), ["date", "open", "volume"]);
+  assert.equal(rows[0].volume, "12345");
+});
+
+test("scoreAtDate does not reward missing turnover with fallback liquidity", () => {
+  const noTurnover = makePatternKline(
+    "2026-01-01",
+    [10, 10.1, 10.2, 10.3, 10.4, 10.5],
+    [1000000, 1000000, 1000000, 1000000, 1000000, 1000000]
+  ).map(({ amount, volume, ...row }) => row);
+
+  const score = scoreAtDate(fixtureRows[0], noTurnover, "2026-01-06", {
+    momentumWeight: 0,
+    liquidityWeight: 1,
+    stabilityWeight: 0,
+    themeWeight: 0,
+    minHistoryDays: 4,
+  });
+
+  assert.equal(score.avgTurnover20, 0);
+  assert.equal(score.liquidityScore, 0);
+  assert.equal(score.score, 0);
 });
 
 test("auditUniverseFields flags snapshot fields and scoring-used PIT risks", () => {

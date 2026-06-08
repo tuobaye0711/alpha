@@ -45,13 +45,13 @@ test("offline loader reads Qlib A-share daily bins into engine kline rows", () =
   assert.equal(payload.source, "qlib_cn_offline");
   assert.equal(payload.symbol, "sh600001");
   assert.deepEqual(rounded, [
-    { date: "2026-01-05", open: 10, close: 10.5, high: 10.8, low: 9.8, volume: 100, amount: 1000 },
-    { date: "2026-01-06", open: 11, close: 11.5, high: 11.8, low: 10.8, volume: 120, amount: 1400 },
-    { date: "2026-01-07", open: 12, close: 12.5, high: 12.8, low: 11.8, volume: 140, amount: 1800 },
+    { date: "2026-01-05", open: 10, close: 10.5, high: 10.8, low: 9.8, volume: 100, amount: 10000000 },
+    { date: "2026-01-06", open: 11, close: 11.5, high: 11.8, low: 10.8, volume: 120, amount: 14000000 },
+    { date: "2026-01-07", open: 12, close: 12.5, high: 12.8, low: 11.8, volume: 140, amount: 18000000 },
   ]);
 });
 
-test("offline loader reads completed HK connect CSV rows", () => {
+test("offline loader reads completed HK connect CSV rows with CRLF line endings", () => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "alpha-offline-hk-"));
   const hkConnectHistoryDir = path.join(tmp, "history_qfq_5y_completed");
   fs.mkdirSync(hkConnectHistoryDir, { recursive: true });
@@ -61,7 +61,7 @@ test("offline loader reads completed HK connect CSV rows", () => {
       "date,open,close,high,low,volume",
       "2026-06-04,28.00,28.20,28.40,27.80,100000",
       "2026-06-05,27.60,27.80,28.00,27.30,120000",
-    ].join("\n")
+    ].join("\r\n")
   );
 
   const payload = loadOfflineKlineForSymbol("hk01810", { hkConnectHistoryDir });

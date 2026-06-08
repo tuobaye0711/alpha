@@ -52,7 +52,7 @@ function parseCsvLine(line) {
 }
 
 function parseCsv(text) {
-  const lines = text.trim().split(/\n/).filter(Boolean);
+  const lines = text.trim().split(/\r?\n/).filter(Boolean);
   const headers = parseCsvLine(lines[0]);
   return lines.slice(1).map((line) => {
     const cells = parseCsvLine(line);
@@ -271,7 +271,7 @@ function themeScore(row, options = {}) {
 }
 
 function scaleLog(value, low, high) {
-  if (!Number.isFinite(value) || value <= 0) return 40;
+  if (!Number.isFinite(value) || value <= 0) return 0;
   const x = Math.log(value);
   const a = Math.log(low);
   const b = Math.log(high);

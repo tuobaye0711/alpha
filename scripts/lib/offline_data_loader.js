@@ -50,9 +50,9 @@ function finiteNumber(value) {
   return Number.isFinite(n) ? n : null;
 }
 
-function addOptionalNumber(row, key, value) {
+function addOptionalNumber(row, key, value, options = {}) {
   const n = finiteNumber(value);
-  if (n != null) row[key] = n;
+  if (n != null) row[key] = n * (options.scale ?? 1);
 }
 
 function loadQlibKline(symbol, qlibDir) {
@@ -93,7 +93,7 @@ function loadQlibKline(symbol, qlibDir) {
     if (!date || open == null || close == null || high == null || low == null) continue;
     const row = { date, open, close, high, low };
     addOptionalNumber(row, "volume", fields.volume?.values[i]);
-    addOptionalNumber(row, "amount", fields.amount?.values[i]);
+    addOptionalNumber(row, "amount", fields.amount?.values[i], { scale: 10000 });
     kline.push(row);
   }
   if (!kline.length) return null;
