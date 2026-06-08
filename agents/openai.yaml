@@ -1,0 +1,4 @@
+interface:
+  display_name: "Alpha"
+  short_description: "个人股票助理，覆盖A股港股定时复盘、全量筛选和风险控制"
+  default_prompt: "Use $alpha to review my A-share and Hong Kong stock portfolio with a short conclusion first."
