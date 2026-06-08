@@ -1,0 +1,15 @@
+{
+  "name": "alpha-skill",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Alpha personal stock assistant skill and offline backtesting runtime",
+  "type": "commonjs",
+  "scripts": {
+    "check": "find scripts -maxdepth 3 -name '*.js' -print0 | xargs -0 -n1 node --check",
+    "test": "node --test scripts/test_*.js",
+    "verify": "npm run check && npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,3 +1,18 @@
 .DS_Store
 *.log
 *.tmp
+node_modules/
+coverage/
+.nyc_output/
+.env
+.env.*
+!.env.example
+
+# Runtime data lives outside the skill repo by default. Keep these ignored
+# in case ALPHA_DATA_HOME is pointed at the repository during local testing.
+cache/
+output/
+offline_datasets/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

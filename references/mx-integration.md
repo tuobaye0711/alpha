@@ -15,12 +15,14 @@
 常用本地 skill 路径：
 
 ```bash
-MX_DATA=/Users/bytedance/.codex/skills/mx-data/mx_data.py
-MX_SEARCH=/Users/bytedance/.codex/skills/mx-search/mx_search.py
-MX_XUANGU=/Users/bytedance/.codex/skills/mx-xuangu/mx_xuangu.py
-MX_ZIXUAN=/Users/bytedance/.codex/skills/mx-zixuan/mx_zixuan.py
-MX_MONI=/Users/bytedance/.codex/skills/mx-moni/mx_moni.py
-ALPHA_OUTPUT_DIR="${HOME}/.codex/alpha/output"
+CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
+ALPHA_DATA_HOME="${ALPHA_DATA_HOME:-$CODEX_HOME/alpha}"
+MX_DATA="$CODEX_HOME/skills/mx-data/mx_data.py"
+MX_SEARCH="$CODEX_HOME/skills/mx-search/mx_search.py"
+MX_XUANGU="$CODEX_HOME/skills/mx-xuangu/mx_xuangu.py"
+MX_ZIXUAN="$CODEX_HOME/skills/mx-zixuan/mx_zixuan.py"
+MX_MONI="$CODEX_HOME/skills/mx-moni/mx_moni.py"
+ALPHA_OUTPUT_DIR="$ALPHA_DATA_HOME/output"
 mkdir -p "$ALPHA_OUTPUT_DIR"
 ```
 
